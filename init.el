@@ -1,9 +1,8 @@
 (setq debug-on-error t) ;;show backtrace on elisp error
 
-
 ;; Save backup files to backup directory only -- not working
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
-(setq make-backup-files nil) ; stop creating ~ files
+(setq make-backup-files nil) ;; stop creating ~ files
 
 (setq vterm-always-compile-module t)
 
@@ -147,7 +146,7 @@
 
 (require 'browse-kill-ring)
 
-;;(load-theme 'spacemacs-light t)      ;; Load theme
+;; (load-theme 'spacemacs-light t)      ;; Load theme
 (load-theme 'spacemacs-dark t)      ;; Load theme
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
@@ -269,6 +268,18 @@
 
 ;; Enable visualization of whitespaces
 (require 'leerzeichen)
+
+;; Enable leerzeichen globally but exclude vterm mode
+;; (trailing whitespaces in vterm are distracting and not needed)
+(add-hook 'prog-mode-hook #'leerzeichen-mode)
+(add-hook 'text-mode-hook #'leerzeichen-mode)
+(add-hook 'web-mode-hook #'leerzeichen-mode)
+(add-hook 'python-mode-hook #'leerzeichen-mode)
+(add-hook 'json-mode-hook #'leerzeichen-mode)
+(add-hook 'yaml-mode-hook #'leerzeichen-mode)
+(add-hook 'markdown-mode-hook #'leerzeichen-mode)
+;; Explicitly disable leerzeichen in vterm
+(add-hook 'vterm-mode-hook (lambda () (leerzeichen-mode -1)))
 
 (windmove-default-keybindings) ;; Move cursor between windows
 
@@ -445,3 +456,4 @@ This command does not push text to `kill-ring'."
 (global-set-key (kbd "C-<backspace>") 'backward-delete-word)
 (global-set-key (kbd "C-<backspace>") 'backward-delete-word)
 (global-set-key (kbd "C-<delete>") 'delete-word)
+(put 'downcase-region 'disabled nil)
