@@ -138,6 +138,10 @@
 
 (setq vterm-max-scrollback 50000)
 
+;; Disable trailing whitespace visualization in vterm
+;; (trailing whitespaces in terminal buffers are not needed)
+(add-hook 'vterm-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+
 ;; Ediff preferences
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
